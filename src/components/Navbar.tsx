@@ -1,13 +1,9 @@
 // 导入 React 的 useState 和 useEffect 钩子
-// useState 用于管理组件状态，useEffect 用于处理副作用（如监听滚动事件）
 import { useState, useEffect } from 'react'
 
 function Navbar() {
-  // 两个状态变量：
   // isScrolled: 记录页面是否滚动超过50px，用于改变导航栏样式
-  // isMobileMenuOpen: 记录移动端菜单是否展开
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // useEffect: 在组件挂载时执行一次
   // 监听 window 的 scroll 事件，滚动时更新 isScrolled 状态
@@ -35,8 +31,6 @@ function Navbar() {
 
   // 滚动到指定区域的函数
   const scrollToSection = (href: string) => {
-    // 点击后先关闭移动端菜单
-    setIsMobileMenuOpen(false)
     // 根据 href 找到页面中的元素
     const element = document.querySelector(href)
     // 如果找到元素，平滑滚动到该位置
@@ -67,12 +61,12 @@ function Navbar() {
             陈德健
           </button>
 
-          {/* 桌面端导航链接：md:hidden 表示在移动端隐藏 */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* 桌面端导航链接 */}
+          <div className="flex items-center gap-8">
             {/* 遍历 navLinks 数组，渲染每个导航按钮 */}
             {navLinks.map((link) => (
               <button
-                key={link.name} // key 是 React 列表渲染必需的，用于标识每个元素
+                key={link.name}
                 onClick={() => scrollToSection(link.href)}
                 className="text-gray-300 hover:text-white transition-colors"
               >
@@ -80,55 +74,7 @@ function Navbar() {
               </button>
             ))}
           </div>
-
-          {/* 移动端汉堡菜单按钮：md:hidden 表示在桌面端隐藏 */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} // 切换菜单状态
-            className="md:hidden p-2"
-            aria-label="Toggle menu"
-          >
-            {/* SVG 图标：根据 isMobileMenuOpen 状态显示不同图标 */}
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {/* 菜单打开时显示 X 图标 */}
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                // 菜单关闭时显示三条横线图标
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
         </div>
-
-        {/* 移动端菜单列表：isMobileMenuOpen 为 true 时显示 */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4">
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => scrollToSection(link.href)}
-                className="block w-full py-2 text-left text-gray-300 hover:text-white transition-colors"
-              >
-                {link.name}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   )
