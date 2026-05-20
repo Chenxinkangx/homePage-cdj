@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <section id="hero" className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
       <p className="mb-4 text-sm text-gray-400">
         Welcome to my personal website
       </p>
