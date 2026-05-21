@@ -1,6 +1,21 @@
+// 导入我们创建的滚动动画 Hook
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
+
 function About() {
+  // 使用 Hook：ref 绑定到 section 上，isVisible 控制动画状态
+  const [ref, isVisible] = useScrollAnimation()
+
   return (
-    <section id="about" className="min-h-screen bg-gray-950 px-6 py-20 text-white">
+    // 1. 绑定 ref 到 section
+    // 2. 添加 animate-on-scroll 类
+    // 3. 根据 isVisible 动态添加 visible 类
+    <section
+      id="about"
+      ref={ref}
+      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+        isVisible ? 'visible' : ''
+      }`}
+    >
       <div className="mx-auto max-w-4xl">
         <h2 className="mb-8 text-3xl font-bold">关于我</h2>
 
@@ -18,19 +33,20 @@ function About() {
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
-          <div className="rounded-lg bg-gray-800 p-4 text-center">
+          {/* 给统计卡片也添加动画，不同的延迟时间 */}
+          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-100">
             <div className="text-2xl font-bold">1年+</div>
             <div className="text-sm text-gray-400">学习时间</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center">
+          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-200">
             <div className="text-2xl font-bold">5个</div>
             <div className="text-sm text-gray-400">项目作品</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center">
+          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-300">
             <div className="text-2xl font-bold">3个</div>
             <div className="text-sm text-gray-400">技能方向</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center">
+          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-400">
             <div className="text-2xl font-bold">持续</div>
             <div className="text-sm text-gray-400">学习中</div>
           </div>

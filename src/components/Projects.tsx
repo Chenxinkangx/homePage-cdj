@@ -1,4 +1,10 @@
+// 导入滚动动画 Hook
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
+
 function Projects() {
+  // 使用 Hook 监听 section 的可见性
+  const [ref, isVisible] = useScrollAnimation()
+
   const projects = [
     {
       title: '个人主页',
@@ -22,8 +28,22 @@ function Projects() {
     },
   ]
 
+  // 延迟类数组，给每个项目卡片设置不同的延迟时间
+  const delayClasses = [
+    'animate-delay-100',
+    'animate-delay-200',
+    'animate-delay-300',
+    'animate-delay-400',
+  ]
+
   return (
-    <section id="projects" className="min-h-screen bg-gray-950 px-6 py-20 text-white">
+    <section
+      id="projects"
+      ref={ref}
+      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+        isVisible ? 'visible' : ''
+      }`}
+    >
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-12 text-3xl font-bold">我的项目</h2>
 
@@ -31,7 +51,8 @@ function Projects() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="rounded-xl border border-gray-800 bg-gray-900 p-6 transition-transform hover:scale-105"
+              // 给每个卡片添加动画类和对应的延迟类
+              className={`rounded-xl border border-gray-800 bg-gray-900 p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
             >
               <h3 className="mb-3 text-xl font-bold">{project.title}</h3>
               <p className="mb-4 text-gray-400">{project.description}</p>

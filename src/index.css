@@ -1,1 +1,47 @@
 @import "tailwindcss";
+
+/* ==================== 滚动动画样式 ==================== */
+
+/* 基础动画类：初始状态 */
+.animate-on-scroll {
+  /* 初始透明 */
+  opacity: 0;
+  /* 初始向下偏移30px */
+  transform: translateY(30px);
+  /* 过渡动画时长0.6秒，缓动函数 */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* 动画激活状态：当元素自身有 visible 类时 */
+.animate-on-scroll.visible {
+  /* 完全不透明 */
+  opacity: 1;
+  /* 回到正常位置 */
+  transform: translateY(0);
+}
+
+/* 动画激活状态：当父元素有 visible 类时，子元素自动激活 */
+.visible .animate-on-scroll {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 延迟动画类：给多个元素设置不同的延迟时间 */
+.animate-delay-100 {
+  transition-delay: 0.1s !important;
+}
+.animate-delay-200 {
+  transition-delay: 0.2s !important;
+}
+.animate-delay-300 {
+  transition-delay: 0.3s !important;
+}
+.animate-delay-400 {
+  transition-delay: 0.4s !important;
+}
+.animate-delay-500 {
+  transition-delay: 0.5s !important;
+}
+.animate-delay-600 {
+  transition-delay: 0.6s !important;
+}

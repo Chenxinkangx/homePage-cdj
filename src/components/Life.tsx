@@ -1,4 +1,10 @@
+// 导入滚动动画 Hook
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
+
 function Life() {
+  // 使用 Hook 监听 section 的可见性
+  const [ref, isVisible] = useScrollAnimation()
+
   const interests = [
     {
       title: '编程学习',
@@ -32,8 +38,24 @@ function Life() {
     },
   ]
 
+  // 延迟类数组（6个，对应6个兴趣卡片）
+  const delayClasses = [
+    'animate-delay-100',
+    'animate-delay-200',
+    'animate-delay-300',
+    'animate-delay-400',
+    'animate-delay-500',
+    'animate-delay-600',
+  ]
+
   return (
-    <section id="life" className="min-h-screen bg-gray-950 px-6 py-20 text-white">
+    <section
+      id="life"
+      ref={ref}
+      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+        isVisible ? 'visible' : ''
+      }`}
+    >
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-12 text-3xl font-bold">兴趣与生活</h2>
 
@@ -41,7 +63,8 @@ function Life() {
           {interests.map((interest, index) => (
             <div
               key={index}
-              className="rounded-xl bg-gray-900 p-6 text-center transition-transform hover:scale-105"
+              // 给每个兴趣卡片添加动画和延迟
+              className={`rounded-xl bg-gray-900 p-6 text-center transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
             >
               <div className="mb-4 text-5xl">{interest.icon}</div>
               <h3 className="mb-2 text-xl font-bold">{interest.title}</h3>
@@ -50,7 +73,7 @@ function Life() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-xl bg-gray-900 p-8">
+        <div className="mt-16 rounded-xl bg-gray-900 p-8 animate-on-scroll animate-delay-300">
           <h3 className="mb-4 text-2xl font-bold">学习方向</h3>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
