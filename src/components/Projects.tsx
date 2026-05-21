@@ -52,7 +52,7 @@ function Projects() {
             <div
               key={index}
               // 给每个卡片添加动画类和对应的延迟类
-              className={`rounded-xl border border-gray-800 bg-gray-900 p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
+              className={`rounded-xl border border-gray-700 bg-gray-800 p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
             >
               <h3 className="mb-3 text-xl font-bold">{project.title}</h3>
               <p className="mb-4 text-gray-400">{project.description}</p>

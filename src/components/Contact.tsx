@@ -9,7 +9,7 @@ function Contact() {
     <section
       id="contact"
       ref={ref}
-      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+      className={`min-h-screen bg-gray-800 px-6 py-20 text-white animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
     >
@@ -24,7 +24,7 @@ function Contact() {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded-xl bg-gray-900 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-100"
+            className="block rounded-xl bg-gray-700 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-100"
           >
             <div className="mb-3 text-4xl">🐙</div>
             <h3 className="text-xl font-bold">GitHub</h3>
@@ -35,7 +35,7 @@ function Contact() {
             href="https://gitee.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="block rounded-xl bg-gray-900 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-200"
+            className="block rounded-xl bg-gray-700 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-200"
           >
             <div className="mb-3 text-4xl">🐮</div>
             <h3 className="text-xl font-bold">Gitee</h3>
@@ -44,7 +44,7 @@ function Contact() {
 
           <a
             href="mailto:example@email.com"
-            className="block rounded-xl bg-gray-900 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-300"
+            className="block rounded-xl bg-gray-700 p-6 transition-transform hover:scale-105 animate-on-scroll animate-delay-300"
           >
             <div className="mb-3 text-4xl">📧</div>
             <h3 className="text-xl font-bold">邮箱</h3>

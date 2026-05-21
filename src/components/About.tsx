@@ -12,7 +12,7 @@ function About() {
     <section
       id="about"
       ref={ref}
-      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+      className={`min-h-screen bg-gray-900 px-6 py-20 text-white animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
     >

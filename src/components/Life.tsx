@@ -52,7 +52,7 @@ function Life() {
     <section
       id="life"
       ref={ref}
-      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+      className={`min-h-screen bg-gray-900 px-6 py-20 text-white animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
     >
@@ -64,7 +64,7 @@ function Life() {
             <div
               key={index}
               // 给每个兴趣卡片添加动画和延迟
-              className={`rounded-xl bg-gray-900 p-6 text-center transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
+              className={`rounded-xl bg-gray-800 p-6 text-center transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
             >
               <div className="mb-4 text-5xl">{interest.icon}</div>
               <h3 className="mb-2 text-xl font-bold">{interest.title}</h3>
@@ -73,7 +73,7 @@ function Life() {
           ))}
         </div>
 
-        <div className="mt-16 rounded-xl bg-gray-900 p-8 animate-on-scroll animate-delay-300">
+        <div className="mt-16 rounded-xl bg-gray-800 p-8 animate-on-scroll animate-delay-300">
           <h3 className="mb-4 text-2xl font-bold">学习方向</h3>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
