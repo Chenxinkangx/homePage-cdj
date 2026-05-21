@@ -1,40 +1,9 @@
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { lifeData } from '../data'
 
 function Life() {
   const [ref, isVisible] = useScrollAnimation()
-
-  const interests = [
-    {
-      title: '编程学习',
-      description: '持续学习前端技术，包括 React、TypeScript、Node.js 等',
-      icon: '💻',
-    },
-    {
-      title: 'AI 编程',
-      description: '探索 AI 辅助编程工具，提升开发效率',
-      icon: '🤖',
-    },
-    {
-      title: '阅读',
-      description: '阅读技术书籍和文章，不断充实自己',
-      icon: '📚',
-    },
-    {
-      title: '音乐',
-      description: '听音乐放松身心，找到工作与生活的平衡',
-      icon: '🎵',
-    },
-    {
-      title: '运动',
-      description: '保持健康的生活方式，适当运动增强体质',
-      icon: '🏃',
-    },
-    {
-      title: '旅行',
-      description: '探索新地方，体验不同的文化和风景',
-      icon: '✈️',
-    },
-  ]
+  const { title, interests, learningSection } = lifeData
 
   const delayClasses = [
     'animate-delay-100',
@@ -55,7 +24,7 @@ function Life() {
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-12 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>兴趣与生活</h2>
+        <h2 className="mb-12 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h2>
 
         <div className="grid gap-6 md:grid-cols-3">
           {interests.map((interest, index) => (
@@ -72,24 +41,20 @@ function Life() {
         </div>
 
         <div className="mt-16 rounded-xl p-8 animate-on-scroll animate-delay-300" style={{ backgroundColor: 'var(--bg-card)' }}>
-          <h3 className="mb-4 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>学习方向</h3>
+          <h3 className="mb-4 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{learningSection.title}</h3>
           <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <div className="h-2 w-32 rounded" style={{ backgroundColor: 'var(--accent-color)' }}></div>
-              <span style={{ color: 'var(--text-secondary)' }}>React 进阶</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="h-2 w-24 rounded" style={{ backgroundColor: 'var(--text-muted)' }}></div>
-              <span style={{ color: 'var(--text-secondary)' }}>TypeScript</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="h-2 w-20 rounded" style={{ backgroundColor: 'var(--text-muted)' }}></div>
-              <span style={{ color: 'var(--text-secondary)' }}>Node.js</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="h-2 w-16 rounded" style={{ backgroundColor: 'var(--text-muted)' }}></div>
-              <span style={{ color: 'var(--text-secondary)' }}>AI 工具</span>
-            </div>
+            {learningSection.items.map((item, index) => (
+              <div key={index} className="flex items-center gap-4">
+                <div 
+                  className="h-2 rounded" 
+                  style={{ 
+                    width: `${item.progress}px`,
+                    backgroundColor: index === 0 ? 'var(--accent-color)' : 'var(--text-muted)'
+                  }}
+                ></div>
+                <span style={{ color: 'var(--text-secondary)' }}>{item.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

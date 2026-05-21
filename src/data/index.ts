@@ -1,0 +1,7 @@
+export { heroData } from './hero'
+export { aboutData } from './about'
+export { projectsData } from './projects'
+export { lifeData } from './life'
+export { contactData } from './contact'
+export { navLinks } from './navbar'
+export { footerData } from './footer'

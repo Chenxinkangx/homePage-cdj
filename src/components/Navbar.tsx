@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { navLinks } from '../data'
 
 interface NavbarProps {
   theme: 'dark' | 'light'
@@ -15,14 +16,6 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const navLinks = [
-    { name: '首页', href: '#hero' },
-    { name: '关于', href: '#about' },
-    { name: '项目', href: '#projects' },
-    { name: '生活', href: '#life' },
-    { name: '联系', href: '#contact' },
-  ]
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
