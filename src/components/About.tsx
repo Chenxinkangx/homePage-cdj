@@ -1,25 +1,21 @@
-// 导入我们创建的滚动动画 Hook
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function About() {
-  // 使用 Hook：ref 绑定到 section 上，isVisible 控制动画状态
   const [ref, isVisible] = useScrollAnimation()
 
   return (
-    // 1. 绑定 ref 到 section
-    // 2. 添加 animate-on-scroll 类
-    // 3. 根据 isVisible 动态添加 visible 类
     <section
       id="about"
       ref={ref}
-      className={`min-h-screen bg-gray-900 px-6 py-20 text-white animate-on-scroll ${
+      className={`min-h-screen px-6 py-20 animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
+      style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-4xl">
-        <h2 className="mb-8 text-3xl font-bold">关于我</h2>
+        <h2 className="mb-8 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>关于我</h2>
 
-        <div className="space-y-6 text-lg leading-8 text-gray-300">
+        <div className="space-y-6 text-lg leading-8" style={{ color: 'var(--text-secondary)' }}>
           <p>
             你好！我是一名前端开发学习者，目前专注于 React 和现代前端技术。
           </p>
@@ -33,22 +29,21 @@ function About() {
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {/* 给统计卡片也添加动画，不同的延迟时间 */}
-          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-100">
-            <div className="text-2xl font-bold">1年+</div>
-            <div className="text-sm text-gray-400">学习时间</div>
+          <div className="rounded-lg p-4 text-center animate-on-scroll animate-delay-100" style={{ backgroundColor: 'var(--bg-card)' }}>
+            <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>1年+</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>学习时间</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-200">
-            <div className="text-2xl font-bold">5个</div>
-            <div className="text-sm text-gray-400">项目作品</div>
+          <div className="rounded-lg p-4 text-center animate-on-scroll animate-delay-200" style={{ backgroundColor: 'var(--bg-card)' }}>
+            <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>5个</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>项目作品</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-300">
-            <div className="text-2xl font-bold">3个</div>
-            <div className="text-sm text-gray-400">技能方向</div>
+          <div className="rounded-lg p-4 text-center animate-on-scroll animate-delay-300" style={{ backgroundColor: 'var(--bg-card)' }}>
+            <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>3个</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>技能方向</div>
           </div>
-          <div className="rounded-lg bg-gray-800 p-4 text-center animate-on-scroll animate-delay-400">
-            <div className="text-2xl font-bold">持续</div>
-            <div className="text-sm text-gray-400">学习中</div>
+          <div className="rounded-lg p-4 text-center animate-on-scroll animate-delay-400" style={{ backgroundColor: 'var(--bg-card)' }}>
+            <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>持续</div>
+            <div className="text-sm" style={{ color: 'var(--text-muted)' }}>学习中</div>
           </div>
         </div>
       </div>

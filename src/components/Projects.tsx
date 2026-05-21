@@ -1,8 +1,6 @@
-// 导入滚动动画 Hook
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 function Projects() {
-  // 使用 Hook 监听 section 的可见性
   const [ref, isVisible] = useScrollAnimation()
 
   const projects = [
@@ -28,7 +26,6 @@ function Projects() {
     },
   ]
 
-  // 延迟类数组，给每个项目卡片设置不同的延迟时间
   const delayClasses = [
     'animate-delay-100',
     'animate-delay-200',
@@ -40,27 +37,35 @@ function Projects() {
     <section
       id="projects"
       ref={ref}
-      className={`min-h-screen bg-gray-950 px-6 py-20 text-white animate-on-scroll ${
+      className={`min-h-screen px-6 py-20 animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
+      style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-12 text-3xl font-bold">我的项目</h2>
+        <h2 className="mb-12 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>我的项目</h2>
 
         <div className="grid gap-8 md:grid-cols-2">
           {projects.map((project, index) => (
             <div
               key={index}
-              // 给每个卡片添加动画类和对应的延迟类
-              className={`rounded-xl border border-gray-700 bg-gray-800 p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
+              className={`rounded-xl border p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
+              style={{ 
+                backgroundColor: 'var(--bg-card)',
+                borderColor: 'var(--border-color)'
+              }}
             >
-              <h3 className="mb-3 text-xl font-bold">{project.title}</h3>
-              <p className="mb-4 text-gray-400">{project.description}</p>
+              <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
+              <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag, tagIndex) => (
                   <span
                     key={tagIndex}
-                    className="rounded-full bg-gray-800 px-3 py-1 text-sm text-gray-300"
+                    className="rounded-full px-3 py-1 text-sm"
+                    style={{ 
+                      backgroundColor: 'var(--bg-secondary)',
+                      color: 'var(--text-muted)'
+                    }}
                   >
                     {tag}
                   </span>

@@ -1,26 +1,21 @@
-// 导入 React 的 useState 和 useEffect 钩子
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
-function Navbar() {
-  // isScrolled: 记录页面是否滚动超过50px，用于改变导航栏样式
+interface NavbarProps {
+  theme: 'dark' | 'light'
+  toggleTheme: () => void
+}
+
+export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // useEffect: 在组件挂载时执行一次
-  // 监听 window 的 scroll 事件，滚动时更新 isScrolled 状态
   useEffect(() => {
-    // 滚动处理函数：当滚动距离超过50px时设置 isScrolled 为 true
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    
-    // 添加滚动事件监听
     window.addEventListener('scroll', handleScroll)
-    
-    // 清理函数：组件卸载时移除事件监听，防止内存泄漏
     return () => window.removeEventListener('scroll', handleScroll)
-  }, []) // 空数组表示只在组件挂载时执行一次
+  }, [])
 
-  // 导航链接数据：用数组存储，方便动态渲染
   const navLinks = [
     { name: '首页', href: '#hero' },
     { name: '关于', href: '#about' },
@@ -29,55 +24,71 @@ function Navbar() {
     { name: '联系', href: '#contact' },
   ]
 
-  // 滚动到指定区域的函数
   const scrollToSection = (href: string) => {
-    // 根据 href 找到页面中的元素
     const element = document.querySelector(href)
-    // 如果找到元素，平滑滚动到该位置
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
   return (
-    // 固定定位的导航栏，z-50 确保在页面最顶层
-    // 根据 isScrolled 状态动态切换样式：滚动后显示背景和模糊效果
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-gray-900/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
+        isScrolled ? 'backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
+      style={{
+        backgroundColor: isScrolled ? 'var(--bg-secondary)' : 'transparent',
+        color: 'var(--text-primary)'
+      }}
     >
-      {/* 导航栏内容容器，max-w-6xl 限制最大宽度，px-6 设置左右内边距 */}
       <div className="mx-auto max-w-6xl px-6">
-        {/* flex 布局：Logo 在左边，导航链接在右边 */}
         <div className="flex h-16 items-center justify-between">
-          {/* Logo 按钮：点击返回首页 */}
           <button
             onClick={() => scrollToSection('#hero')}
-            className="text-xl font-bold hover:text-gray-400 transition-colors"
+            className="text-xl font-bold transition-colors"
+            style={{ color: 'var(--text-primary)' }}
           >
             陈德健
           </button>
 
-          {/* 桌面端导航链接 */}
-          <div className="flex items-center gap-8">
-            {/* 遍历 navLinks 数组，渲染每个导航按钮 */}
+          <div className="flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-gray-300 hover:text-white transition-colors"
+                className="transition-colors"
+                style={{ color: 'var(--text-secondary)' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
               >
                 {link.name}
               </button>
             ))}
+
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg transition-colors"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                color: 'var(--text-primary)',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-card-hover)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-card)'}
+              aria-label={theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+            >
+              {theme === 'dark' ? (
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </div>
     </nav>
   )
 }
-
-export default Navbar

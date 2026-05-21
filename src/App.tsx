@@ -1,4 +1,5 @@
-import Navbar from './components/Navbar'
+import { useTheme } from './hooks/useTheme'
+import { Navbar } from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Projects from './components/Projects'
@@ -7,9 +8,13 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 
 function App() {
+  // 使用主题 Hook
+  const { theme, toggleTheme } = useTheme()
+
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
-      <Navbar />
+    <main className="min-h-screen">
+      {/* 将主题状态和切换函数传递给 Navbar */}
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <About />
       <Projects />
