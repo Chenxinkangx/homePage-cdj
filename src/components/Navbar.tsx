@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { navLinks } from '../data'
 
 interface NavbarProps {
@@ -9,12 +8,29 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('#hero')
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
+
+      const sections = ['#hero', '#about', '#skills', '#projects', '#blog', '#life', '#contact']
+      const scrollPosition = window.scrollY + 200
+
+      for (const section of sections) {
+        const element = document.querySelector(section) as HTMLElement | null
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
     }
+
     window.addEventListener('scroll', handleScroll)
+    handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -22,6 +38,15 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  const getLinkStyle = (link: typeof navLinks[0]) => {
+    const isActive = activeSection === link.href
+
+    return {
+      color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)',
+      fontWeight: isActive ? 'bold' : 'normal',
     }
   }
 
@@ -46,34 +71,16 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
           </button>
 
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => {
-              if (link.type === 'route') {
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className="transition-colors"
-                    style={{ color: 'var(--text-secondary)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                  >
-                    {link.name}
-                  </Link>
-                )
-              }
-              return (
-                <button
-                  key={link.name}
-                  onClick={() => scrollToSection(link.href)}
-                  className="transition-colors"
-                  style={{ color: 'var(--text-secondary)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                >
-                  {link.name}
-                </button>
-              )
-            })}
+            {navLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.href)}
+                className="transition-colors"
+                style={getLinkStyle(link)}
+              >
+                {link.name}
+              </button>
+            ))}
 
             <button
               onClick={toggleTheme}
