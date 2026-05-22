@@ -5,7 +5,7 @@ function Footer() {
   const { copyright, links } = footerData
 
   return (
-    <footer className="px-6 py-8" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <footer className="px-6 py-8" style={{ backgroundColor: 'var(--bg-secondary)' }}>
       <div className="mx-auto max-w-6xl text-center">
         <div className="mb-4 flex justify-center gap-6">
           {links.map((link, index) => (

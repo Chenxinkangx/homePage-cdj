@@ -29,7 +29,7 @@ function Projects() {
       className={`min-h-screen px-6 py-20 animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
-      style={{ backgroundColor: 'var(--bg-primary)' }}
+      style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-6xl">
         <h2 className="mb-12 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>我的项目</h2>

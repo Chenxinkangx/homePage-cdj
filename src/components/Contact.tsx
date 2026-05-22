@@ -18,7 +18,7 @@ function Contact() {
       className={`min-h-screen px-6 py-20 animate-on-scroll ${
         isVisible ? 'visible' : ''
       }`}
-      style={{ backgroundColor: 'var(--bg-card)' }}
+      style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h2>
@@ -34,7 +34,7 @@ function Contact() {
               target="_blank"
               rel="noopener noreferrer"
               className={`block rounded-xl p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
-              style={{ backgroundColor: 'var(--bg-secondary)' }}
+              style={{ backgroundColor: 'var(--bg-card)' }}
             >
               <div className="mb-3 text-4xl">{link.icon}</div>
               <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{link.title}</h3>

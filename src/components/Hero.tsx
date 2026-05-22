@@ -4,7 +4,11 @@ function Hero() {
   const { welcomeText, name, description, ctaPrimary, ctaSecondary } = heroData
 
   return (
-    <section id="hero" className="flex min-h-screen flex-col items-center justify-center px-6 text-center">
+    <section 
+      id="hero" 
+      className="flex min-h-screen flex-col items-center justify-center px-6 text-center"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+    >
       <p className="mb-4 text-sm" style={{ color: 'var(--text-muted)' }}>
         {welcomeText}
       </p>

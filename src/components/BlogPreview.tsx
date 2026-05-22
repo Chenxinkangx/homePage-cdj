@@ -12,7 +12,7 @@ function BlogPreview() {
       id="blog"
       ref={ref}
       className={`min-h-screen px-6 py-20 animate-on-scroll ${isVisible ? 'visible' : ''}`}
-      style={{ backgroundColor: 'var(--bg-secondary)' }}
+      style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-6xl">
         <div className="text-center mb-12">
