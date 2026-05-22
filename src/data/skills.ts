@@ -14,9 +14,9 @@ export const skillsData = {
     {
       name: '后端开发',
       skills: [
-        { name: 'Node.js', level: 60 },
-        { name: 'Express', level: 55 },
-        { name: 'MongoDB', level: 50 },
+        { name: 'Node.js', level: 70 },
+        { name: 'Express', level: 65 },
+        { name: 'SpringBoot', level: 80 },
       ],
     },
     {
@@ -24,8 +24,8 @@ export const skillsData = {
       skills: [
         { name: 'Git', level: 80 },
         { name: 'Vite', level: 70 },
-        { name: 'Webpack', level: 60 },
-        { name: 'Docker', level: 40 },
+        { name: 'ClaudeCode', level: 80 },
+        { name: 'Codex', level: 75 },
       ],
     },
   ],
