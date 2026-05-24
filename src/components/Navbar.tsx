@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      const sections = ['#hero', '#about', '#skills', '#projects', '#blog', '#life', '#contact']
+      const sections = ['#hero', '#about', '#skills', '#projects', '#blog', '#life', '#contact', '#guestbook']
       const scrollPosition = window.scrollY + 200
 
       for (const section of sections) {

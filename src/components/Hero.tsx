@@ -1,7 +1,7 @@
 import { heroData } from '../data'
 
 function Hero() {
-  const { welcomeText, name, description, ctaPrimary, ctaSecondary } = heroData
+  const { welcomeText, name, description, ctaPrimary, ctaSecondary, ctaTertiary } = heroData
 
   return (
     <section 
@@ -44,6 +44,25 @@ function Hero() {
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
           {ctaSecondary.text}
+        </a>
+
+        <a
+          href={ctaTertiary.href}
+          className="rounded-xl border px-5 py-3 font-medium transition-colors"
+          style={{ 
+            borderColor: 'var(--accent-color)',
+            color: 'var(--accent-color)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'var(--accent-color)'
+            e.currentTarget.style.color = 'white'
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'transparent'
+            e.currentTarget.style.color = 'var(--accent-color)'
+          }}
+        >
+          {ctaTertiary.text}
         </a>
       </div>
     </section>

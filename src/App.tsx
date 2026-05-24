@@ -7,6 +7,7 @@ import Projects from './components/Projects'
 import BlogPreview from './components/BlogPreview'
 import Life from './components/Life'
 import Contact from './components/Contact'
+import Guestbook from './components/Guestbook'
 import Footer from './components/Footer'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <BlogPreview />
       <Life />
       <Contact />
+      <Guestbook />
       <Footer />
     </main>
   )

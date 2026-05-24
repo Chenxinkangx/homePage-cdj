@@ -6,4 +6,5 @@ export const navLinks = [
   { name: '博客', href: '#blog' },
   { name: '生活', href: '#life' },
   { name: '联系', href: '#contact' },
+  { name: '留言', href: '#guestbook' },
 ]

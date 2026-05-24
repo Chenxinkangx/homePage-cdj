@@ -10,4 +10,8 @@ export const heroData = {
     text: '关于我',
     href: '#about',
   },
+  ctaTertiary: {
+    text: '去留言',
+    href: '#guestbook',
+  },
 }
