@@ -71,16 +71,24 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
           </button>
 
           <div className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <button
-                key={link.name}
-                onClick={() => scrollToSection(link.href)}
-                className="transition-colors"
-                style={getLinkStyle(link)}
-              >
-                {link.name}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href
+              return (
+                <button
+                  key={link.name}
+                  onClick={() => scrollToSection(link.href)}
+                  className={`nav-button px-3 py-1.5 rounded-lg transition-all duration-200 ${
+                    isActive ? 'font-bold' : 'font-normal'
+                  }`}
+                  style={{
+                    color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)',
+                    backgroundColor: 'transparent',
+                  }}
+                >
+                  {link.name}
+                </button>
+              )
+            })}
 
             <button
               onClick={toggleTheme}

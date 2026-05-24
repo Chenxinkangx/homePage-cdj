@@ -71,3 +71,9 @@ body {
     transform: scale(1) translateY(0);
   }
 }
+
+/* ==================== 导航按钮悬停样式 ==================== */
+.nav-button:hover {
+  background-color: var(--accent-color) !important;
+  color: #ffffff !important;
+}
