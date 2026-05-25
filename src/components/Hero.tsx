@@ -3,6 +3,13 @@ import { heroData } from '../data'
 function Hero() {
   const { welcomeText, name, description, ctaPrimary, ctaSecondary, ctaTertiary } = heroData
 
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <section 
       id="hero" 
@@ -22,8 +29,8 @@ function Hero() {
       </p>
 
       <div className="mt-8 flex gap-4">
-        <a
-          href={ctaPrimary.href}
+        <button
+          onClick={() => scrollToSection(ctaPrimary.href)}
           className="rounded-xl px-5 py-3 font-medium transition-opacity hover:opacity-90"
           style={{ 
             backgroundColor: 'var(--accent-color)',
@@ -31,10 +38,10 @@ function Hero() {
           }}
         >
           {ctaPrimary.text}
-        </a>
+        </button>
 
-        <a
-          href={ctaSecondary.href}
+        <button
+          onClick={() => scrollToSection(ctaSecondary.href)}
           className="rounded-xl border px-5 py-3 font-medium transition-colors"
           style={{ 
             borderColor: 'var(--border-color)',
@@ -44,10 +51,10 @@ function Hero() {
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
           {ctaSecondary.text}
-        </a>
+        </button>
 
-        <a
-          href={ctaTertiary.href}
+        <button
+          onClick={() => scrollToSection(ctaTertiary.href)}
           className="rounded-xl border px-5 py-3 font-medium transition-colors"
           style={{ 
             borderColor: 'var(--accent-color)',
@@ -63,7 +70,7 @@ function Hero() {
           }}
         >
           {ctaTertiary.text}
-        </a>
+        </button>
       </div>
     </section>
   )
