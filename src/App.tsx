@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main className="min-h-screen">
       <Hero />
       <About />
       <Skills />
