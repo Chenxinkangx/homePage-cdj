@@ -1,23 +1,11 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { Reveal } from './Reveal'
 import { contactData } from '../data'
 
 function Contact() {
-  const [ref, isVisible] = useScrollAnimation()
   const { title, description, links } = contactData
 
-  const delayClasses = [
-    'animate-delay-100',
-    'animate-delay-200',
-    'animate-delay-300',
-  ]
-
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className={`min-h-screen px-6 py-20 animate-on-scroll ${
-        isVisible ? 'visible' : ''
-      }`}
+    <section className="min-h-screen px-6 py-20" id="contact"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-4xl text-center">
@@ -28,18 +16,17 @@ function Contact() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {links.map((link, index) => (
-            <a
-              key={index}
+            <Reveal key={index} direction="up" delay={index * 0.1} as="a"
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`block rounded-xl p-6 transition-transform hover:scale-105 animate-on-scroll ${delayClasses[index]}`}
+              className="block rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >
               <div className="mb-3 text-4xl">{link.icon}</div>
               <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{link.title}</h3>
               <p className="mt-2 text-sm" style={{ color: 'var(--text-muted)' }}>{link.description}</p>
-            </a>
+            </Reveal>
           ))}
         </div>
       </div>

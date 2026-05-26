@@ -1,21 +1,14 @@
 import React, { useState } from 'react'
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { Reveal } from './Reveal'
 import { guestbookData } from '../data'
 import type { GuestbookEntry } from '../data/guestbook'
 
 function Guestbook() {
-  const [ref, isVisible] = useScrollAnimation()
   const { title, description, placeholder, submitButton, initialEntries } = guestbookData
   const [entries, setEntries] = useState<GuestbookEntry[]>(initialEntries)
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
-
-  const delayClasses = [
-    'animate-delay-100',
-    'animate-delay-200',
-    'animate-delay-300',
-  ]
 
   const formatDate = (date: Date) => {
     const now = new Date()
@@ -57,12 +50,7 @@ function Guestbook() {
   }
 
   return (
-    <section
-      id="guestbook"
-      ref={ref}
-      className={`min-h-screen px-6 py-20 animate-on-scroll ${
-        isVisible ? 'visible' : ''
-      }`}
+    <section className="min-h-screen px-6 py-20" id="guestbook"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-4xl">
@@ -73,7 +61,10 @@ function Guestbook() {
           </p>
         </div>
 
-        <div className={`rounded-xl p-6 mb-8 animate-on-scroll ${delayClasses[0]}`} style={{ backgroundColor: 'var(--bg-card)' }}>
+        <Reveal direction="up" delay={0.1} as="div"
+          className="rounded-xl p-6 mb-8"
+          style={{ backgroundColor: 'var(--bg-card)' }}
+        >
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -113,13 +104,12 @@ function Guestbook() {
               {submitButton}
             </button>
           </form>
-        </div>
+        </Reveal>
 
         <div className="space-y-4">
-          {entries.map((entry, index) => (
-            <div
-              key={entry.id}
-              className={`rounded-xl p-6 animate-on-scroll ${delayClasses[Math.min(index, 2)]}`}
+          {entries.map((entry) => (
+            <Reveal key={entry.id} direction="up" delay={0.05} as="div"
+              className="rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >
               <div className="flex items-center justify-between mb-3">
@@ -139,7 +129,7 @@ function Guestbook() {
                 </span>
               </div>
               <p style={{ color: 'var(--text-secondary)' }}>{entry.content}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

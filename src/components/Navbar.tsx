@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { navLinks } from '../data'
+import { useTheme } from '../hooks/useTheme'
+import { useLenis } from 'lenis/react'
 
-interface NavbarProps {
-  theme: 'dark' | 'light'
-  toggleTheme: () => void
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
+export const Navbar: React.FC = () => {
+  const { theme, toggleTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('#hero')
+  const lenis = useLenis()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,19 +33,30 @@ export const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+  useLenis(({ scroll }) => {
+    setIsScrolled(scroll > 50)
+
+    const sections = ['#hero', '#about', '#skills', '#projects', '#blog', '#life', '#contact', '#guestbook']
+    const scrollPosition = scroll + 200
+
+    for (const section of sections) {
+      const element = document.querySelector(section) as HTMLElement | null
+      if (element) {
+        const { offsetTop, offsetHeight } = element
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          setActiveSection(section)
+          break
+        }
+      }
     }
-  }
+  }, [])
 
-  const getLinkStyle = (link: typeof navLinks[0]) => {
-    const isActive = activeSection === link.href
-
-    return {
-      color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)',
-      fontWeight: isActive ? 'bold' : 'normal',
+  const scrollToSection = (href: string) => {
+    if (lenis) {
+      const target = document.querySelector(href) as HTMLElement | null
+      if (target) {
+        lenis.scrollTo(target, { offset: -80, duration: 1.5 })
+      }
     }
   }
 

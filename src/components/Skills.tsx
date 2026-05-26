@@ -1,14 +1,9 @@
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { motion } from 'framer-motion'
 import { skillsData } from '../data'
 
 function Skills() {
-  const [ref, isVisible] = useScrollAnimation()
-
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className={`min-h-screen px-6 py-20 animate-on-scroll ${isVisible ? 'visible' : ''}`}
+    <section className="min-h-screen px-6 py-20" id="skills"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-6xl">
@@ -34,14 +29,14 @@ function Skills() {
                       <span style={{ color: 'var(--text-muted)' }}>{skill.level}%</span>
                     </div>
                     <div className="h-2 rounded-full" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-                      <div
-                        className={`h-full rounded-full transition-all duration-1000 ${isVisible ? 'animate-on-scroll' : ''}`}
-                        style={{
-                          width: isVisible ? `${skill.level}%` : '0%',
-                          backgroundColor: 'var(--accent-color)',
-                          transitionDelay: `${skillIndex * 100}ms`,
-                        }}
-                      ></div>
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: 'var(--accent-color)' }}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2, delay: skillIndex * 0.1, ease: 'easeOut' }}
+                      />
                     </div>
                   </div>
                 ))}

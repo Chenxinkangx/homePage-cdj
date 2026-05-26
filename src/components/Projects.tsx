@@ -1,18 +1,68 @@
 import { useState } from 'react'
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { Reveal } from './Reveal'
 import { projectsData } from '../data'
 import Modal from './Modal'
 
-function Projects() {
-  const [ref, isVisible] = useScrollAnimation()
-  const [selectedProject, setSelectedProject] = useState<typeof projectsData[0] | null>(null)
+function ProjectCard({ project, onClick: handleClick }: { project: typeof projectsData[0]; onClick: () => void }) {
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
 
-  const delayClasses = [
-    'animate-delay-100',
-    'animate-delay-200',
-    'animate-delay-300',
-    'animate-delay-400',
-  ]
+  const rotateX = useTransform(y, [-0.5, 0.5], [10, -10])
+  const rotateY = useTransform(x, [-0.5, 0.5], [-10, 10])
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    x.set((e.clientX - rect.left) / rect.width - 0.5)
+    y.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
+  return (
+    <motion.div
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d' as const,
+        backgroundColor: 'var(--bg-card)',
+        borderColor: 'var(--border-color)',
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+      className="rounded-xl border p-6 cursor-pointer"
+      onClick={handleClick}
+    >
+      <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
+      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
+      <div className="flex flex-wrap gap-2">
+        {project.tags.map((tag, tagIndex) => (
+          <span
+            key={tagIndex}
+            className="rounded-full px-3 py-1 text-sm"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              color: 'var(--text-muted)',
+            }}
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      <p className="mt-4 text-sm" style={{ color: 'var(--accent-color)' }}>
+        点击查看详情 →
+      </p>
+    </motion.div>
+  )
+}
+
+function Projects() {
+  const [selectedProject, setSelectedProject] = useState<typeof projectsData[0] | null>(null)
 
   const handleCardClick = (project: typeof projectsData[0]) => {
     setSelectedProject(project)
@@ -23,12 +73,7 @@ function Projects() {
   }
 
   return (
-    <section
-      id="projects"
-      ref={ref}
-      className={`min-h-screen px-6 py-20 animate-on-scroll ${
-        isVisible ? 'visible' : ''
-      }`}
+    <Reveal direction="left" as="section" className="min-h-screen px-6 py-20" id="projects"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-6xl">
@@ -36,35 +81,7 @@ function Projects() {
 
         <div className="grid gap-8 md:grid-cols-2">
           {projectsData.map((project, index) => (
-            <div
-              key={index}
-              className={`rounded-xl border p-6 transition-all hover:scale-105 cursor-pointer animate-on-scroll ${delayClasses[index]}`}
-              style={{ 
-                backgroundColor: 'var(--bg-card)',
-                borderColor: 'var(--border-color)'
-              }}
-              onClick={() => handleCardClick(project)}
-            >
-              <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{project.title}</h3>
-              <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, tagIndex) => (
-                  <span
-                    key={tagIndex}
-                    className="rounded-full px-3 py-1 text-sm"
-                    style={{ 
-                      backgroundColor: 'var(--bg-secondary)',
-                      color: 'var(--text-muted)'
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p className="mt-4 text-sm" style={{ color: 'var(--accent-color)' }}>
-                点击查看详情 →
-              </p>
-            </div>
+            <ProjectCard key={index} project={project} onClick={() => handleCardClick(project)} />
           ))}
         </div>
       </div>
@@ -108,9 +125,9 @@ function Projects() {
                   <span
                     key={tagIndex}
                     className="rounded-full px-3 py-1 text-sm"
-                    style={{ 
+                    style={{
                       backgroundColor: 'var(--bg-secondary)',
-                      color: 'var(--text-muted)'
+                      color: 'var(--text-muted)',
                     }}
                   >
                     {tag}
@@ -121,7 +138,7 @@ function Projects() {
           </div>
         )}
       </Modal>
-    </section>
+    </Reveal>
   )
 }
 

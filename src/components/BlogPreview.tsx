@@ -1,17 +1,12 @@
 import { Link } from 'react-router-dom'
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { Reveal } from './Reveal'
 import { blogData } from '../data'
 
 function BlogPreview() {
-  const [ref, isVisible] = useScrollAnimation()
-
   const latestPosts = blogData.slice(0, 3)
 
   return (
-    <section
-      id="blog"
-      ref={ref}
-      className={`min-h-screen px-6 py-20 animate-on-scroll ${isVisible ? 'visible' : ''}`}
+    <section className="min-h-screen px-6 py-20" id="blog"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-6xl">
@@ -25,14 +20,12 @@ function BlogPreview() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {latestPosts.map((post, index) => (
-            <div
-              key={post.id}
-              className={`rounded-xl border p-6 transition-all hover:scale-105 animate-on-scroll`}
+          {latestPosts.map((post) => (
+            <Reveal key={post.id} direction="right" delay={0.1} as="div"
+              className="rounded-xl border p-6"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 borderColor: 'var(--border-color)',
-                transitionDelay: `${index * 100}ms`,
               }}
             >
               <span
@@ -66,7 +59,7 @@ function BlogPreview() {
                   阅读更多 →
                 </Link>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
 
