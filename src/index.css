@@ -72,6 +72,26 @@ body {
   }
 }
 
+/* ==================== 渐变背景动画 ==================== */
+.bg-gradient-animated {
+  background: linear-gradient(
+    125deg,
+    var(--gradient-from),
+    var(--gradient-via),
+    var(--gradient-to)
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 100% 50%; }
+  50%  { background-position: 50% 100%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ==================== 导航按钮悬停样式 ==================== */
 .nav-button:hover {
   background-color: var(--accent-color) !important;

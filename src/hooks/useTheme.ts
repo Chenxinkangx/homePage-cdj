@@ -16,6 +16,9 @@ const themeConfig = {
     '--text-muted': '#9ca3af',      // 淡化文字
     '--border-color': '#374151',    // 边框颜色
     '--accent-color': '#3b82f6',    // 强调色（蓝色）
+    '--gradient-from': '#0f0c29',   // 渐变起始色
+    '--gradient-via': '#302b63',    // 渐变过渡色
+    '--gradient-to': '#24243e',     // 渐变结束色
   },
   light: {
     '--bg-primary': '#ffffff',      // 白色背景
@@ -27,6 +30,9 @@ const themeConfig = {
     '--text-muted': '#6b7280',      // 淡化文字
     '--border-color': '#e5e7eb',    // 边框颜色
     '--accent-color': '#3b82f6',    // 强调色（蓝色）
+    '--gradient-from': '#e0e7ff',   // 渐变起始色
+    '--gradient-via': '#f0e6ff',    // 渐变过渡色
+    '--gradient-to': '#e8f0fe',     // 渐变结束色
   },
 }
 
