@@ -8,7 +8,6 @@ import Blog from '../pages/Blog'
 import BlogDetail from '../pages/BlogDetail'
 import NotFound from '../pages/NotFound'
 import ScrollProgress from '../components/ScrollProgress'
-import { FloatingOrbs } from '../components/FloatingOrbs'
 import { NoiseOverlay } from '../components/NoiseOverlay'
 
 function Layout() {
@@ -30,7 +29,6 @@ function Layout() {
       }}
     >
       <ScrollProgress />
-      <FloatingOrbs />
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.div
