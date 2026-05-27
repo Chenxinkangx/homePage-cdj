@@ -1,14 +1,11 @@
 import { useEffect } from 'react'
 import { createBrowserRouter, Outlet, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ReactLenis } from 'lenis/react'
 import { Navbar } from '../components/Navbar'
 import App from '../App'
 import Blog from '../pages/Blog'
 import BlogDetail from '../pages/BlogDetail'
 import NotFound from '../pages/NotFound'
-import ScrollProgress from '../components/ScrollProgress'
-import { NoiseOverlay } from '../components/NoiseOverlay'
 
 function Layout() {
   const location = useLocation()
@@ -18,30 +15,19 @@ function Layout() {
   }, [location.pathname])
 
   return (
-    <ReactLenis
-      root
-      options={{
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-      }}
-    >
-      <ScrollProgress />
+    <>
       <Navbar />
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] } }}
-          exit={{ opacity: 0, y: -20, transition: { duration: 0.25 } }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } }}
+          exit={{ opacity: 0, y: -10, transition: { duration: 0.2 } }}
         >
           <Outlet />
         </motion.div>
       </AnimatePresence>
-      <NoiseOverlay />
-    </ReactLenis>
+    </>
   )
 }
 

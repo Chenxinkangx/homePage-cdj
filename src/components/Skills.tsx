@@ -7,7 +7,7 @@ function Skills() {
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-12 text-3xl font-bold text-center" style={{ color: 'var(--text-primary)' }}>
+        <h2 className="mb-12 text-3xl font-bold text-center tracking-tight" style={{ color: 'var(--text-primary)' }}>
           {skillsData.title}
         </h2>
 
@@ -15,17 +15,16 @@ function Skills() {
           {skillsData.categories.map((category, catIndex) => (
             <motion.div
               key={catIndex}
-              className="rounded-xl p-6"
-              style={{ backgroundColor: 'var(--bg-card)' }}
-              initial={{ opacity: 0, y: 30 }}
+              className="rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                boxShadow: '0 0 0 rgba(59, 130, 246, 0)',
+                transitionProperty: 'transform, box-shadow',
+              }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-              whileHover={{
-                y: -5,
-                boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)',
-                transition: { duration: 0.25, ease: 'easeOut' },
-              }}
+              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
             >
               <h3 className="mb-6 text-xl font-bold inline-block relative" style={{ color: 'var(--accent-color)' }}>
                 {category.name}
@@ -36,12 +35,10 @@ function Skills() {
               </h3>
               <div className="mt-4 space-y-3">
                 {category.skills.map((skill, skillIndex) => (
-                  <motion.div
+                  <div
                     key={skillIndex}
-                    className="flex items-center gap-3 rounded-lg p-3"
+                    className="flex items-center gap-3 rounded-lg p-3 transition-all duration-200 hover:translate-x-1"
                     style={{ backgroundColor: 'var(--bg-secondary)' }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
                     {/* Level indicator dots */}
                     <div className="flex gap-0.5 flex-shrink-0">
@@ -62,7 +59,7 @@ function Skills() {
                     <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
                       {skill.level}%
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </motion.div>

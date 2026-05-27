@@ -1,26 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { motion, useMotionValue, animate } from 'framer-motion'
-import { Reveal } from './Reveal'
+import { motion } from 'framer-motion'
 import { aboutData } from '../data'
-import { SplitText } from './SplitText'
-
-function RollingCounter({ target }: { target: number }) {
-  const count = useMotionValue(0)
-  const ref = useRef<HTMLSpanElement>(null)
-
-  useEffect(() => {
-    const unsubscribe = count.on('change', (v) => {
-      if (ref.current) ref.current.textContent = String(Math.round(v))
-    })
-    const controls = animate(count, target, { duration: 1.5, ease: 'easeOut' })
-    return () => {
-      unsubscribe()
-      controls.stop()
-    }
-  }, [count, target])
-
-  return <span ref={ref}>0</span>
-}
 
 function About() {
   const { title, paragraphs, stats } = aboutData
@@ -43,21 +22,21 @@ function About() {
             >
               &ldquo;
             </span>
-            <h2 className="mt-2 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
-              <SplitText text={title} as="span" />
+            <h2 className="mt-2 text-3xl font-bold leading-snug tracking-tight" style={{ color: 'var(--text-primary)' }}>
+              {title}
             </h2>
           </div>
 
-          <div className="md:col-span-3 space-y-6 text-lg leading-8"
+          <div className="md:col-span-3 space-y-5 text-lg leading-relaxed"
             style={{ color: 'var(--text-secondary)' }}
           >
             {paragraphs.map((paragraph, index) => (
               <motion.p
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {paragraph}
               </motion.p>
@@ -66,22 +45,22 @@ function About() {
         </div>
 
         <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {stats.map((stat, index) => {
-            const numValue = parseInt(stat.value, 10) || 0
-            const suffix = stat.value.replace(/[\d]/g, '')
-            return (
-              <Reveal key={index} direction="up" delay={index * 0.1} as="div"
-                className="rounded-lg p-4 text-center"
-                style={{ backgroundColor: 'var(--bg-card)' }}
-              >
-                <div className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                  {numValue > 0 ? <RollingCounter target={numValue} /> : stat.value}
-                  {suffix}
-                </div>
-                <div className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
-              </Reveal>
-            )
-          })}
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
+              className="rounded-lg p-4 text-center"
+              style={{ backgroundColor: 'var(--bg-card)' }}
+            >
+              <div className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
+                {stat.value}
+              </div>
+              <div className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

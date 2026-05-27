@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Reveal } from './Reveal'
 import { guestbookData } from '../data'
 import type { GuestbookEntry } from '../data/guestbook'
 
@@ -57,13 +55,13 @@ function Guestbook() {
     >
       <div className="mx-auto max-w-4xl">
         <div className="text-center mb-12">
-          <h2 className="mb-6 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h2>
+          <h2 className="mb-6 text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{title}</h2>
           <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
             {description}
           </p>
         </div>
 
-        <Reveal direction="up" delay={0.1} as="div"
+        <div
           className="rounded-xl p-6 mb-8"
           style={{ backgroundColor: 'var(--bg-card)' }}
         >
@@ -75,7 +73,7 @@ function Guestbook() {
               placeholder={placeholder.nickname}
               onFocus={() => setFocused('nickname')}
               onBlur={() => setFocused(null)}
-              className="w-full rounded-lg px-4 py-3 outline-none transition-all"
+              className="w-full rounded-lg px-4 py-3 outline-none transition-shadow"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -90,7 +88,7 @@ function Guestbook() {
               rows={4}
               onFocus={() => setFocused('content')}
               onBlur={() => setFocused(null)}
-              className="w-full rounded-lg px-4 py-3 outline-none transition-all resize-none"
+              className="w-full rounded-lg px-4 py-3 outline-none transition-shadow resize-none"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -101,23 +99,23 @@ function Guestbook() {
             {error && (
               <p className="text-red-500 text-sm">{error}</p>
             )}
-            <motion.button
+            <button
               type="submit"
-              whileTap={{ scale: 0.97 }}
-              className="w-full rounded-lg px-6 py-3 font-medium transition-all hover:scale-[1.02]"
+              className="w-full rounded-lg px-6 py-3 font-medium transition-all duration-200 hover:opacity-90 hover:scale-[1.01] active:scale-[0.98]"
               style={{
                 backgroundColor: 'var(--accent-color)',
                 color: 'white',
               }}
             >
               {submitButton}
-            </motion.button>
+            </button>
           </form>
-        </Reveal>
+        </div>
 
         <div className="space-y-4">
           {entries.map((entry) => (
-            <Reveal key={entry.id} direction="up" delay={0.05} as="div"
+            <div
+              key={entry.id}
               className="rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >
@@ -138,7 +136,7 @@ function Guestbook() {
                 </span>
               </div>
               <p style={{ color: 'var(--text-secondary)' }}>{entry.content}</p>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

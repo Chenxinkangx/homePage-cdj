@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { Reveal } from './Reveal'
 import { lifeData } from '../data'
 
 function Life() {
@@ -10,41 +9,35 @@ function Life() {
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="mb-12 text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{title}</h2>
+        <h2 className="mb-12 text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{title}</h2>
 
         <div className="grid gap-6 md:grid-cols-3">
           {interests.map((interest, index) => (
             <motion.div
               key={index}
-              className="rounded-xl p-6 text-center transition-all duration-300 cursor-default"
-              style={{ backgroundColor: 'var(--bg-card)' }}
-              initial={{ opacity: 0, y: 30 }}
+              className="rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-default"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+              }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{
-                y: -5,
-                background: 'var(--bg-card-hover)',
-              }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
             >
-              <motion.div
-                className="mb-4 text-5xl"
-                whileHover={{ scale: 1.3, rotate: 10 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 12 }}
-              >
+              <div className="mb-4 text-5xl transition-transform duration-300 hover:scale-110">
                 {interest.icon}
-              </motion.div>
+              </div>
               <h3 className="mb-2 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{interest.title}</h3>
               <p style={{ color: 'var(--text-secondary)' }}>{interest.description}</p>
             </motion.div>
           ))}
         </div>
 
-        <Reveal direction="up" delay={0.3} as="div"
+        <div
           className="mt-16 rounded-xl p-8"
           style={{ backgroundColor: 'var(--bg-card)' }}
         >
-          <h3 className="mb-6 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{learningSection.title}</h3>
+          <h3 className="mb-6 text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>{learningSection.title}</h3>
           <div className="space-y-5">
             {learningSection.items.map((item, index) => (
               <div key={index}>
@@ -59,13 +52,13 @@ function Life() {
                     initial={{ width: 0 }}
                     whileInView={{ width: `${item.progress}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1.2, delay: index * 0.15, ease: 'easeOut' }}
+                    transition={{ duration: 1, delay: index * 0.1, ease: 'easeOut' }}
                   />
                 </div>
               </div>
             ))}
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   )

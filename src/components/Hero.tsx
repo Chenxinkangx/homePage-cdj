@@ -3,27 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { heroData } from '../data'
 import GradientBackground from './GradientBackground'
 import ParticleBackground from './ParticleBackground'
-import { SplitText } from './SplitText'
-import { MagneticButton } from './MagneticButton'
 
 const roles = ['Frontend Developer', 'AI Explorer', 'Design Lover']
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] },
-  },
-}
 
 function Hero() {
   const { welcomeText, name, description, ctaPrimary, ctaSecondary, ctaTertiary } = heroData
@@ -52,30 +33,42 @@ function Hero() {
       <GradientBackground />
       <ParticleBackground particleCount={50} connectionDistance={150} />
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 flex flex-col items-center"
-      >
-        <motion.p variants={itemVariants} className="mb-4 text-sm tracking-widest uppercase" style={{ color: 'var(--text-muted)' }}>
+      <div className="relative z-10 flex flex-col items-center">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mb-4 text-sm tracking-widest uppercase"
+          style={{ color: 'var(--text-muted)' }}
+        >
           {welcomeText}
         </motion.p>
 
-        <motion.h1 variants={itemVariants} className="text-5xl font-bold md:text-7xl lg:text-8xl" style={{ color: 'var(--text-primary)' }}>
-          <SplitText text={name} as="span" />
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
+          className="text-5xl font-extrabold tracking-tight md:text-7xl lg:text-8xl"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          {name}
         </motion.h1>
 
-        <motion.div variants={itemVariants} className="mt-4 h-8">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-4 h-8"
+        >
           <AnimatePresence mode="wait">
             <motion.span
               key={roleIndex}
               className="text-lg md:text-xl font-medium"
               style={{ color: 'var(--accent-color)' }}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3 }}
             >
               {roles[roleIndex]}
             </motion.span>
@@ -83,76 +76,77 @@ function Hero() {
         </motion.div>
 
         <motion.p
-          variants={itemVariants}
-          className="mt-6 max-w-2xl text-lg leading-8"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.45 }}
+          className="mt-6 max-w-2xl text-lg leading-relaxed"
           style={{ color: 'var(--text-secondary)' }}
         >
           {description}
         </motion.p>
 
-        <motion.div variants={itemVariants} className="mt-10 flex flex-wrap justify-center gap-4">
-          <MagneticButton>
-            <button
-              onClick={() => scrollToSection(ctaPrimary.href)}
-              className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group"
-              style={{ color: 'white' }}
-            >
-              <span
-                className="absolute inset-0 transition-all duration-300 group-hover:scale-105 group-hover:opacity-90"
-                style={{
-                  background: `linear-gradient(135deg, var(--accent-color), #8b5cf6)`,
-                  boxShadow: `0 4px 20px rgba(59, 130, 246, 0.35)`,
-                }}
-              />
-              <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ boxShadow: 'inset 0 0 30px rgba(255,255,255,0.15)' }}
-              />
-              <span className="relative z-10">{ctaPrimary.text}</span>
-            </button>
-          </MagneticButton>
-
-          <MagneticButton>
-            <button
-              onClick={() => scrollToSection(ctaSecondary.href)}
-              className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300"
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-10 flex flex-wrap justify-center gap-4"
+        >
+          <button
+            onClick={() => scrollToSection(ctaPrimary.href)}
+            className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300 hover:scale-[1.03]"
+            style={{ color: 'white' }}
+          >
+            <span
+              className="absolute inset-0 transition-all duration-300 group-hover:scale-105 group-hover:opacity-90"
               style={{
-                color: 'var(--text-primary)',
-                backgroundColor: 'color-mix(in srgb, var(--text-primary) 5%, transparent)',
-                backdropFilter: 'blur(4px)',
-                border: '1px solid var(--border-color)',
+                background: `linear-gradient(135deg, var(--accent-color), #8b5cf6)`,
+                boxShadow: `0 4px 20px rgba(59, 130, 246, 0.35)`,
               }}
-            >
-              <span
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-                style={{ backgroundColor: 'color-mix(in srgb, var(--accent-color) 10%, transparent)' }}
-              />
-              <span className="relative z-10 flex items-center gap-2">
-                {ctaSecondary.text}
-              </span>
-            </button>
-          </MagneticButton>
+            />
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ boxShadow: 'inset 0 0 30px rgba(255,255,255,0.15)' }}
+            />
+            <span className="relative z-10">{ctaPrimary.text}</span>
+          </button>
 
-          <MagneticButton>
-            <button
-              onClick={() => scrollToSection(ctaTertiary.href)}
-              className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300"
-              style={{
-                color: 'var(--accent-color)',
-                backgroundColor: 'transparent',
-                border: '1px solid var(--accent-color)',
-              }}
-            >
-              <span
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-                style={{ backgroundColor: 'var(--accent-color)' }}
-              />
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                {ctaTertiary.text}
-              </span>
-            </button>
-          </MagneticButton>
+          <button
+            onClick={() => scrollToSection(ctaSecondary.href)}
+            className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300 hover:scale-[1.03]"
+            style={{
+              color: 'var(--text-primary)',
+              backgroundColor: 'color-mix(in srgb, var(--text-primary) 5%, transparent)',
+              backdropFilter: 'blur(4px)',
+              border: '1px solid var(--border-color)',
+            }}
+          >
+            <span
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+              style={{ backgroundColor: 'color-mix(in srgb, var(--accent-color) 10%, transparent)' }}
+            />
+            <span className="relative z-10 flex items-center gap-2">
+              {ctaSecondary.text}
+            </span>
+          </button>
+
+          <button
+            onClick={() => scrollToSection(ctaTertiary.href)}
+            className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300 hover:scale-[1.03]"
+            style={{
+              color: 'var(--accent-color)',
+              backgroundColor: 'transparent',
+              border: '1px solid var(--accent-color)',
+            }}
+          >
+            <span
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+              style={{ backgroundColor: 'var(--accent-color)' }}
+            />
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+              {ctaTertiary.text}
+            </span>
+          </button>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div

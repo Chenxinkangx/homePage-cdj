@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Reveal } from './Reveal'
 import { blogData } from '../data'
 
 function BlogPreview() {
@@ -11,7 +10,7 @@ function BlogPreview() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
+          <h2 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
             最新博客
           </h2>
           <p className="mt-4" style={{ color: 'var(--text-secondary)' }}>
@@ -21,8 +20,9 @@ function BlogPreview() {
 
         <div className="grid gap-8 md:grid-cols-3">
           {latestPosts.map((post) => (
-            <Reveal key={post.id} direction="right" delay={0.1} as="div"
-              className="rounded-xl border p-6"
+            <div
+              key={post.id}
+              className="rounded-xl border p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 borderColor: 'var(--border-color)',
@@ -38,11 +38,11 @@ function BlogPreview() {
                 {post.category}
               </span>
 
-              <h3 className="mb-3 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
+              <h3 className="mb-3 text-xl font-bold tracking-tight" style={{ color: 'var(--text-primary)' }}>
                 {post.title}
               </h3>
 
-              <p className="mb-4 line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
+              <p className="mb-4 line-clamp-2 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {post.excerpt}
               </p>
 
@@ -59,14 +59,14 @@ function BlogPreview() {
                   阅读更多 →
                 </Link>
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
 
         <div className="mt-12 text-center">
           <Link
             to="/blog"
-            className="inline-block rounded-xl border px-6 py-3 font-medium transition-colors"
+            className="inline-block rounded-xl border px-6 py-3 font-medium transition-all duration-200 hover:bg-card hover:-translate-y-0.5"
             style={{
               borderColor: 'var(--border-color)',
               color: 'var(--text-primary)',

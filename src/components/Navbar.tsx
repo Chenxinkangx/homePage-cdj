@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { navLinks } from '../data'
 import { useTheme } from '../hooks/useTheme'
-import { useLenis } from 'lenis/react'
 
 export const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('#hero')
-  const lenis = useLenis()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,30 +31,10 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useLenis(({ scroll }) => {
-    setIsScrolled(scroll > 50)
-
-    const sections = ['#hero', '#about', '#skills', '#projects', '#blog', '#life', '#contact', '#guestbook']
-    const scrollPosition = scroll + 200
-
-    for (const section of sections) {
-      const element = document.querySelector(section) as HTMLElement | null
-      if (element) {
-        const { offsetTop, offsetHeight } = element
-        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-          setActiveSection(section)
-          break
-        }
-      }
-    }
-  }, [])
-
   const scrollToSection = (href: string) => {
-    if (lenis) {
-      const target = document.querySelector(href) as HTMLElement | null
-      if (target) {
-        lenis.scrollTo(target, { offset: -80, duration: 1.5 })
-      }
+    const element = document.querySelector(href) as HTMLElement | null
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 
@@ -75,7 +52,7 @@ export const Navbar: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           <button
             onClick={() => scrollToSection('#hero')}
-            className="text-xl font-bold transition-colors"
+            className="text-xl font-bold transition-opacity hover:opacity-80"
             style={{ color: 'var(--text-primary)' }}
           >
             陈德健
@@ -85,21 +62,19 @@ export const Navbar: React.FC = () => {
             {navLinks.map((link) => {
               const isActive = activeSection === link.href
               return (
-                <motion.button
+                <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
                   className={`nav-button px-3 py-1.5 rounded-lg transition-all duration-200 ${
-                    isActive ? 'font-bold' : 'font-normal'
+                    isActive ? 'font-semibold' : 'font-normal'
                   }`}
                   style={{
                     color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)',
                     backgroundColor: 'transparent',
                   }}
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   {link.name}
-                </motion.button>
+                </button>
               )
             })}
 
