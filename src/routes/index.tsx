@@ -10,7 +10,6 @@ import NotFound from '../pages/NotFound'
 import ScrollProgress from '../components/ScrollProgress'
 import { FloatingOrbs } from '../components/FloatingOrbs'
 import { NoiseOverlay } from '../components/NoiseOverlay'
-import { CustomCursor } from '../components/CustomCursor'
 
 function Layout() {
   const location = useLocation()
@@ -33,7 +32,6 @@ function Layout() {
       <ScrollProgress />
       <FloatingOrbs />
       <Navbar />
-      <CustomCursor />
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}

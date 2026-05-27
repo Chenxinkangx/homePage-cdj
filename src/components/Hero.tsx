@@ -50,7 +50,7 @@ function Hero() {
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       <GradientBackground />
-      <ParticleBackground particleCount={30} connectionDistance={150} />
+      <ParticleBackground particleCount={50} connectionDistance={150} />
 
       <motion.div
         variants={containerVariants}
