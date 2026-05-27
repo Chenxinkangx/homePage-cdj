@@ -13,35 +13,58 @@ function Skills() {
 
         <div className="grid gap-8 md:grid-cols-3">
           {skillsData.categories.map((category, catIndex) => (
-            <div
+            <motion.div
               key={catIndex}
-              className="rounded-xl p-6"
+              className="rounded-xl p-6 transition-all duration-300"
               style={{ backgroundColor: 'var(--bg-card)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+              whileHover={{
+                y: -5,
+                boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)',
+              }}
             >
-              <h3 className="mb-4 text-xl font-bold" style={{ color: 'var(--accent-color)' }}>
+              <h3 className="mb-6 text-xl font-bold inline-block relative" style={{ color: 'var(--accent-color)' }}>
                 {category.name}
+                <span
+                  className="absolute -bottom-1 left-0 h-0.5 w-full rounded"
+                  style={{ backgroundColor: 'var(--accent-color)' }}
+                />
               </h3>
-              <div className="space-y-4">
+              <div className="mt-4 space-y-3">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between mb-1">
-                      <span style={{ color: 'var(--text-secondary)' }}>{skill.name}</span>
-                      <span style={{ color: 'var(--text-muted)' }}>{skill.level}%</span>
+                  <motion.div
+                    key={skillIndex}
+                    className="flex items-center gap-3 rounded-lg p-3 transition-colors"
+                    style={{ backgroundColor: 'var(--bg-secondary)' }}
+                    whileHover={{ scale: 1.03, x: 3 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  >
+                    {/* Level indicator dots */}
+                    <div className="flex gap-0.5 flex-shrink-0">
+                      {[0, 1, 2, 3, 4].map((dot) => (
+                        <div
+                          key={dot}
+                          className="w-1.5 h-1.5 rounded-full"
+                          style={{
+                            backgroundColor: dot * 20 < skill.level ? 'var(--accent-color)' : 'var(--text-muted)',
+                            opacity: dot * 20 < skill.level ? 1 : 0.3,
+                          }}
+                        />
+                      ))}
                     </div>
-                    <div className="h-2 rounded-full" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: 'var(--accent-color)' }}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: skillIndex * 0.1, ease: 'easeOut' }}
-                      />
-                    </div>
-                  </div>
+                    <span className="font-medium flex-1" style={{ color: 'var(--text-primary)' }}>
+                      {skill.name}
+                    </span>
+                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                      {skill.level}%
+                    </span>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
