@@ -7,21 +7,18 @@ function ProjectCard({ project, index }: { project: typeof projectsData[0]; inde
 
   return (
     <motion.div
+      className="rounded-xl border overflow-hidden cursor-pointer group"
+      style={{
+        backgroundColor: 'var(--bg-card)',
+        borderColor: 'var(--border-color)',
+      }}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.12, ease: 'easeOut' }}
+      onClick={() => setIsOpen(!isOpen)}
+      whileHover={{ y: -2, transition: { duration: 0.2, ease: 'easeOut' } }}
     >
-      <motion.div
-        className="rounded-xl border overflow-hidden cursor-pointer group"
-        style={{
-          backgroundColor: 'var(--bg-card)',
-          borderColor: 'var(--border-color)',
-        }}
-        onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ y: -2 }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
-      >
         {/* Accent bar */}
         <div
           className="h-1 w-full origin-left transition-transform duration-300 group-hover:scale-x-105"
@@ -120,7 +117,6 @@ function ProjectCard({ project, index }: { project: typeof projectsData[0]; inde
           </AnimatePresence>
         </div>
       </motion.div>
-    </motion.div>
   )
 }
 
