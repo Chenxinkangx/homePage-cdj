@@ -1,157 +1,152 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { projectsData } from '../data'
-import Modal from './Modal'
 
-function Projects() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [selectedProject, setSelectedProject] = useState<typeof projectsData[0] | null>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  const handleScroll = useCallback(() => {
-    if (!scrollRef.current) return
-    const scrollLeft = scrollRef.current.scrollLeft
-    const cardWidth = scrollRef.current.clientWidth * 0.7 + 32
-    const index = Math.round(scrollLeft / cardWidth)
-    setActiveIndex(Math.min(index, projectsData.length - 1))
-  }, [])
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    el.addEventListener('scroll', handleScroll)
-    return () => el.removeEventListener('scroll', handleScroll)
-  }, [handleScroll])
-
-  const scrollToIndex = (index: number) => {
-    if (!scrollRef.current) return
-    const cardWidth = scrollRef.current.clientWidth * 0.7 + 32
-    scrollRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' })
-  }
-
-  const handleCardClick = (project: typeof projectsData[0]) => {
-    setSelectedProject(project)
-  }
-
-  const handleCloseModal = () => {
-    setSelectedProject(null)
-  }
+function ProjectCard({ project, index }: { project: typeof projectsData[0]; index: number }) {
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 py-20 overflow-hidden" id="projects"
-      style={{ backgroundColor: 'var(--bg-secondary)' }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.12, ease: 'easeOut' }}
     >
-      <div className="mx-auto w-full max-w-6xl mb-12">
-        <h2 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>我的项目</h2>
-      </div>
-
-      <div
-        ref={scrollRef}
-        className="flex gap-8 overflow-x-auto pb-8 px-[calc((100%-76rem)/2)] snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      <motion.div
+        className="rounded-xl border overflow-hidden cursor-pointer group"
+        style={{
+          backgroundColor: 'var(--bg-card)',
+          borderColor: 'var(--border-color)',
+        }}
+        onClick={() => setIsOpen(!isOpen)}
+        whileHover={{ y: -2 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       >
-        {projectsData.map((project, index) => {
-          const isActive = index === activeIndex
-          return (
-            <motion.div
-              key={index}
-              className="flex-shrink-0 snap-center cursor-pointer rounded-xl border p-8"
-              style={{
-                width: '70vw',
-                maxWidth: '720px',
-                backgroundColor: 'var(--bg-card)',
-                borderColor: 'var(--border-color)',
-                scale: isActive ? 1 : 0.9,
-                opacity: isActive ? 1 : 0.6,
-                filter: isActive ? 'blur(0px)' : 'blur(2px)',
-              }}
-              onClick={() => handleCardClick(project)}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              <div
-                className="h-2 w-20 rounded-full mb-6"
-                style={{ background: 'var(--accent-color)' }}
-              />
-              <h3 className="mb-4 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+        {/* Accent bar */}
+        <div
+          className="h-1 w-full origin-left transition-transform duration-300 group-hover:scale-x-105"
+          style={{ backgroundColor: 'var(--accent-color)' }}
+        />
+
+        <div className="p-8">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold mb-3" style={{ color: 'var(--text-primary)' }}>
                 {project.title}
               </h3>
-              <p className="mb-6 text-lg leading-7" style={{ color: 'var(--text-secondary)' }}>
+              <p className="text-lg leading-7" style={{ color: 'var(--text-secondary)' }}>
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map((tag, tagIndex) => (
-                  <span key={tagIndex}
-                    className="rounded-full px-3 py-1 text-sm"
-                    style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-muted)' }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p className="text-sm font-medium" style={{ color: 'var(--accent-color)' }}>
-                点击查看详情 →
-              </p>
+            </div>
+
+            {/* Expand indicator */}
+            <motion.div
+              className="flex-shrink-0 ml-6 mt-1"
+              animate={{ rotate: isOpen ? 180 : 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              style={{ color: 'var(--text-muted)' }}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </motion.div>
-          )
-        })}
-      </div>
-
-      <div className="flex justify-center gap-3 mt-6">
-        {projectsData.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => scrollToIndex(index)}
-            className="rounded-full transition-all duration-300"
-            style={{
-              width: index === activeIndex ? 24 : 8,
-              height: 8,
-              backgroundColor: index === activeIndex ? 'var(--accent-color)' : 'var(--text-muted)',
-            }}
-            aria-label={`跳转到项目 ${index + 1}`}
-          />
-        ))}
-      </div>
-
-      <Modal
-        isOpen={!!selectedProject}
-        onClose={handleCloseModal}
-        title={selectedProject?.title || ''}
-      >
-        {selectedProject && (
-          <div className="space-y-4">
-            <p>{selectedProject.details}</p>
-            <div>
-              <h4 className="font-bold mb-2" style={{ color: 'var(--text-primary)' }}>功能特性</h4>
-              <ul className="space-y-1">
-                {selectedProject.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                      style={{ color: 'var(--accent-color)' }}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-2" style={{ color: 'var(--text-primary)' }}>技术栈</h4>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.tags.map((tag, index) => (
-                  <span key={index}
-                    className="rounded-full px-3 py-1 text-sm"
-                    style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-muted)' }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
           </div>
-        )}
-      </Modal>
+
+          <div className="flex flex-wrap gap-2 mt-4">
+            {project.tags.map((tag, tagIndex) => (
+              <span
+                key={tagIndex}
+                className="rounded-full px-3 py-1 text-sm"
+                style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-muted)' }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Expanded details */}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+                className="overflow-hidden"
+              >
+                <div className="pt-6 mt-6" style={{ borderTop: '1px solid var(--border-color)' }}>
+                  <p className="mb-6 leading-7" style={{ color: 'var(--text-secondary)' }}>
+                    {project.details}
+                  </p>
+
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div>
+                      <h4 className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
+                        功能特性
+                      </h4>
+                      <ul className="space-y-2">
+                        {project.features.map((feature, fi) => (
+                          <li key={fi} className="flex items-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
+                            <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                              style={{ color: 'var(--accent-color)' }}
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
+                        技术栈
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag, ti) => (
+                          <span key={ti}
+                            className="rounded-md px-3 py-1.5 text-sm"
+                            style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent-color)' }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
+function Projects() {
+  return (
+    <section className="px-6 py-20" id="projects"
+      style={{ backgroundColor: 'var(--bg-secondary)' }}
+    >
+      <div className="mx-auto max-w-4xl">
+        <motion.h2
+          className="text-3xl font-bold mb-14"
+          style={{ color: 'var(--text-primary)' }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          我的项目
+        </motion.h2>
+
+        <div className="space-y-6">
+          {projectsData.map((project, index) => (
+            <ProjectCard key={index} project={project} index={index} />
+          ))}
+        </div>
+      </div>
     </section>
   )
 }
