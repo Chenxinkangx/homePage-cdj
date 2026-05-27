@@ -38,10 +38,10 @@ function Skills() {
                 {category.skills.map((skill, skillIndex) => (
                   <motion.div
                     key={skillIndex}
-                    className="flex items-center gap-3 rounded-lg p-3 transition-colors"
+                    className="flex items-center gap-3 rounded-lg p-3"
                     style={{ backgroundColor: 'var(--bg-secondary)' }}
-                    whileHover={{ scale: 1.03, x: 3 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
                   >
                     {/* Level indicator dots */}
                     <div className="flex gap-0.5 flex-shrink-0">
