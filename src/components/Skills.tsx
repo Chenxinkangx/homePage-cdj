@@ -15,15 +15,16 @@ function Skills() {
           {skillsData.categories.map((category, catIndex) => (
             <motion.div
               key={catIndex}
-              className="rounded-xl p-6 transition-all duration-300"
+              className="rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
               whileHover={{
                 y: -5,
                 boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)',
+                transition: { duration: 0.25, ease: 'easeOut' },
               }}
             >
               <h3 className="mb-6 text-xl font-bold inline-block relative" style={{ color: 'var(--accent-color)' }}>
