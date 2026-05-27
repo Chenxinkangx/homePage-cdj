@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Reveal } from './Reveal'
 import { lifeData } from '../data'
 
@@ -13,14 +14,29 @@ function Life() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {interests.map((interest, index) => (
-            <Reveal key={index} direction="up" delay={index * 0.1} as="div"
-              className="rounded-xl p-6 text-center"
+            <motion.div
+              key={index}
+              className="rounded-xl p-6 text-center transition-all duration-300 cursor-default"
               style={{ backgroundColor: 'var(--bg-card)' }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -5,
+                background: 'var(--bg-card-hover)',
+              }}
             >
-              <div className="mb-4 text-5xl">{interest.icon}</div>
+              <motion.div
+                className="mb-4 text-5xl"
+                whileHover={{ scale: 1.3, rotate: 10 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+              >
+                {interest.icon}
+              </motion.div>
               <h3 className="mb-2 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{interest.title}</h3>
               <p style={{ color: 'var(--text-secondary)' }}>{interest.description}</p>
-            </Reveal>
+            </motion.div>
           ))}
         </div>
 
@@ -28,18 +44,24 @@ function Life() {
           className="mt-16 rounded-xl p-8"
           style={{ backgroundColor: 'var(--bg-card)' }}
         >
-          <h3 className="mb-4 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{learningSection.title}</h3>
-          <div className="space-y-4">
+          <h3 className="mb-6 text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>{learningSection.title}</h3>
+          <div className="space-y-5">
             {learningSection.items.map((item, index) => (
-              <div key={index} className="flex items-center gap-4">
-                <div
-                  className="h-2 rounded"
-                  style={{
-                    width: `${item.progress}px`,
-                    backgroundColor: index === 0 ? 'var(--accent-color)' : 'var(--text-muted)',
-                  }}
-                ></div>
-                <span style={{ color: 'var(--text-secondary)' }}>{item.name}</span>
+              <div key={index}>
+                <div className="flex justify-between mb-2">
+                  <span style={{ color: 'var(--text-secondary)' }}>{item.name}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>{item.progress}%</span>
+                </div>
+                <div className="h-2 rounded-full" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ backgroundColor: 'var(--accent-color)' }}
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${item.progress}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: index * 0.15, ease: 'easeOut' }}
+                  />
+                </div>
               </div>
             ))}
           </div>

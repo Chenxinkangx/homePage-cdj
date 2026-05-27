@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { navLinks } from '../data'
 import { useTheme } from '../hooks/useTheme'
 import { useLenis } from 'lenis/react'
@@ -84,7 +85,7 @@ export const Navbar: React.FC = () => {
             {navLinks.map((link) => {
               const isActive = activeSection === link.href
               return (
-                <button
+                <motion.button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
                   className={`nav-button px-3 py-1.5 rounded-lg transition-all duration-200 ${
@@ -94,9 +95,11 @@ export const Navbar: React.FC = () => {
                     color: isActive ? 'var(--accent-color)' : 'var(--text-secondary)',
                     backgroundColor: 'transparent',
                   }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 15 }}
                 >
                   {link.name}
-                </button>
+                </motion.button>
               )
             })}
 

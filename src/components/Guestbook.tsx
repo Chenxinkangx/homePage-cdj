@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Reveal } from './Reveal'
 import { guestbookData } from '../data'
 import type { GuestbookEntry } from '../data/guestbook'
@@ -9,6 +10,7 @@ function Guestbook() {
   const [nickname, setNickname] = useState('')
   const [content, setContent] = useState('')
   const [error, setError] = useState('')
+  const [focused, setFocused] = useState<'nickname' | 'content' | null>(null)
 
   const formatDate = (date: Date) => {
     const now = new Date()
@@ -71,11 +73,14 @@ function Guestbook() {
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
               placeholder={placeholder.nickname}
-              className="w-full rounded-lg px-4 py-3 outline-none transition-colors"
+              onFocus={() => setFocused('nickname')}
+              onBlur={() => setFocused(null)}
+              className="w-full rounded-lg px-4 py-3 outline-none transition-all"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
                 border: '1px solid var(--border-color)',
+                boxShadow: focused === 'nickname' ? '0 0 0 2px var(--accent-color)' : 'none',
               }}
             />
             <textarea
@@ -83,18 +88,22 @@ function Guestbook() {
               onChange={(e) => setContent(e.target.value)}
               placeholder={placeholder.content}
               rows={4}
-              className="w-full rounded-lg px-4 py-3 outline-none transition-colors resize-none"
+              onFocus={() => setFocused('content')}
+              onBlur={() => setFocused(null)}
+              className="w-full rounded-lg px-4 py-3 outline-none transition-all resize-none"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
                 border: '1px solid var(--border-color)',
+                boxShadow: focused === 'content' ? '0 0 0 2px var(--accent-color)' : 'none',
               }}
             />
             {error && (
               <p className="text-red-500 text-sm">{error}</p>
             )}
-            <button
+            <motion.button
               type="submit"
+              whileTap={{ scale: 0.97 }}
               className="w-full rounded-lg px-6 py-3 font-medium transition-all hover:scale-[1.02]"
               style={{
                 backgroundColor: 'var(--accent-color)',
@@ -102,7 +111,7 @@ function Guestbook() {
               }}
             >
               {submitButton}
-            </button>
+            </motion.button>
           </form>
         </Reveal>
 
