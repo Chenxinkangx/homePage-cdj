@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { lifeData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function Life() {
   const { title, interests, learningSection } = lifeData
@@ -15,14 +16,13 @@ function Life() {
           {interests.map((interest, index) => (
             <motion.div
               key={index}
-              className="rounded-xl p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-default"
+              className="rounded-xl p-6 text-center transition-shadow duration-300 hover:shadow-lg cursor-default"
               style={{
                 backgroundColor: 'var(--bg-card)',
               }}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
+              {...cardAnimation}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}
+              whileHover={{ y: -4 }}
             >
               <div className="mb-4 text-5xl transition-transform duration-300 hover:scale-110">
                 {interest.icon}

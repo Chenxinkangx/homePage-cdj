@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { blogData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function BlogPreview() {
   const latestPosts = blogData.slice(0, 3)
@@ -19,14 +21,17 @@ function BlogPreview() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
-          {latestPosts.map((post) => (
-            <div
+          {latestPosts.map((post, index) => (
+            <motion.div
               key={post.id}
-              className="rounded-xl border p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+              {...cardAnimation}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
+              className="rounded-xl border p-6 transition-shadow duration-200 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 borderColor: 'var(--border-color)',
               }}
+              whileHover={{ y: -4 }}
             >
               <span
                 className="mb-3 inline-block rounded-full px-3 py-1 text-sm"
@@ -59,7 +64,7 @@ function BlogPreview() {
                   阅读更多 →
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

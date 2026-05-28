@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { blogData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function Blog() {
   return (
@@ -10,14 +12,17 @@ function Blog() {
         </h1>
 
         <div className="grid gap-6 md:grid-cols-2">
-          {blogData.map((post) => (
-            <article
+          {blogData.map((post, index) => (
+            <motion.article
               key={post.id}
-              className="rounded-xl border p-6 transition-all hover:scale-105 cursor-pointer"
+              {...cardAnimation}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.08 }}
+              className="rounded-xl border p-6 transition-shadow duration-200 hover:shadow-lg cursor-pointer"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 borderColor: 'var(--border-color)',
               }}
+              whileHover={{ y: -4, scale: 1.01 }}
             >
               <span
                 className="mb-2 inline-block rounded-full px-3 py-1 text-sm"
@@ -53,7 +58,7 @@ function Blog() {
                   阅读更多 →
                 </Link>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

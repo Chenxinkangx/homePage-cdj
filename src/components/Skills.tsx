@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { skillsData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function Skills() {
   return (
@@ -15,16 +16,13 @@ function Skills() {
           {skillsData.categories.map((category, catIndex) => (
             <motion.div
               key={catIndex}
-              className="rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="rounded-xl p-6 transition-shadow duration-300 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
-                boxShadow: '0 0 0 rgba(59, 130, 246, 0)',
-                transitionProperty: 'transform, box-shadow',
               }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+              {...cardAnimation}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: catIndex * 0.1 }}
+              whileHover={{ y: -4 }}
             >
               <h3 className="mb-6 text-xl font-bold inline-block relative" style={{ color: 'var(--accent-color)' }}>
                 {category.name}

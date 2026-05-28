@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { aboutData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function About() {
   const { title, paragraphs, stats } = aboutData
@@ -48,10 +49,8 @@ function About() {
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
+              {...cardAnimation}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}
               className="rounded-lg p-4 text-center"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >

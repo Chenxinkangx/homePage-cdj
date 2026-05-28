@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { guestbookData } from '../data'
+import { cardAnimation } from '../utils/variants'
 import type { GuestbookEntry } from '../data/guestbook'
 
 function Guestbook() {
@@ -61,7 +63,9 @@ function Guestbook() {
           </p>
         </div>
 
-        <div
+        <motion.div
+          {...cardAnimation}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
           className="rounded-xl p-6 mb-8"
           style={{ backgroundColor: 'var(--bg-card)' }}
         >
@@ -110,12 +114,14 @@ function Guestbook() {
               {submitButton}
             </button>
           </form>
-        </div>
+        </motion.div>
 
         <div className="space-y-4">
-          {entries.map((entry) => (
-            <div
+          {entries.map((entry, index) => (
+            <motion.div
               key={entry.id}
+              {...cardAnimation}
+              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
               className="rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >
@@ -136,7 +142,7 @@ function Guestbook() {
                 </span>
               </div>
               <p style={{ color: 'var(--text-secondary)' }}>{entry.content}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

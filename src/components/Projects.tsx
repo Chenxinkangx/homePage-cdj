@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { projectsData } from '../data'
+import { cardAnimation } from '../utils/variants'
 
 function ProjectCard({ project, index }: { project: typeof projectsData[0]; index: number }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -12,10 +13,8 @@ function ProjectCard({ project, index }: { project: typeof projectsData[0]; inde
         backgroundColor: 'var(--bg-card)',
         borderColor: 'var(--border-color)',
       }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
+      {...cardAnimation}
+      transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
       onClick={() => setIsOpen(!isOpen)}
     >
       {/* Accent bar */}

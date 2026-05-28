@@ -23,7 +23,7 @@ function Contact() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-6 rounded-xl p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+              className="flex items-center gap-6 rounded-xl p-6 transition-shadow duration-200 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 marginLeft: index % 2 === 0 ? '0' : '4rem',
@@ -33,6 +33,7 @@ function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
+              whileHover={{ y: -2 }}
             >
               <span className="text-3xl flex-shrink-0 transition-transform duration-200 hover:scale-110">
                 {link.icon}
