@@ -7,7 +7,7 @@ import ParticleBackground from './ParticleBackground'
 const roles = ['Frontend Developer', 'AI Explorer', 'Design Lover']
 
 function Hero() {
-  const { welcomeText, name, description, ctaPrimary, ctaSecondary, ctaTertiary } = heroData
+  const { welcomeText, name, description, ctaPrimary, ctaSecondary } = heroData
   const [roleIndex, setRoleIndex] = useState(0)
 
   useEffect(() => {
@@ -128,23 +128,6 @@ function Hero() {
             </span>
           </button>
 
-          <button
-            onClick={() => scrollToSection(ctaTertiary.href)}
-            className="relative rounded-xl px-7 py-3.5 font-semibold tracking-wide overflow-hidden group transition-all duration-300 hover:scale-[1.03]"
-            style={{
-              color: 'var(--accent-color)',
-              backgroundColor: 'transparent',
-              border: '1px solid var(--accent-color)',
-            }}
-          >
-            <span
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-              style={{ backgroundColor: 'var(--accent-color)' }}
-            />
-            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-              {ctaTertiary.text}
-            </span>
-          </button>
         </motion.div>
       </div>
 

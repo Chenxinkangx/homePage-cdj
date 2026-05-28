@@ -1,7 +1,7 @@
 export const heroData = {
-  welcomeText: 'Welcome to my personal website',
+  welcomeText: 'Frontend Developer',
   name: '你好，我是陈德健',
-  description: '我正在学习前端开发、React、AI 编程和个人网站建设。这个网站会用来展示我的项目、生活、兴趣和成长记录。',
+  description: '专注于构建有品质的交互体验。善于将前端工程、AI 工具与设计细节结合，开发清晰、高效的 Web 应用。',
   ctaPrimary: {
     text: '查看项目',
     href: '#projects',
@@ -9,9 +9,5 @@ export const heroData = {
   ctaSecondary: {
     text: '关于我',
     href: '#about',
-  },
-  ctaTertiary: {
-    text: '去留言',
-    href: '#guestbook',
   },
 }

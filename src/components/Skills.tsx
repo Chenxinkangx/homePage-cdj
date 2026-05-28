@@ -36,35 +36,21 @@ function Skills() {
                   style={{ backgroundColor: 'var(--accent-color)' }}
                 />
               </h3>
-              <div className="mt-4 space-y-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <div
-                    key={skillIndex}
-                    className="flex items-center gap-3 rounded-lg p-3 transition-all duration-200 hover:translate-x-1"
-                    style={{ backgroundColor: 'var(--bg-secondary)' }}
+              <ul className="space-y-3">
+                {category.items.map((item, itemIndex) => (
+                  <li
+                    key={itemIndex}
+                    className="flex items-start gap-3 rounded-lg p-3"
+                    style={{ color: 'var(--text-secondary)' }}
                   >
-                    {/* Level indicator dots */}
-                    <div className="flex gap-0.5 flex-shrink-0">
-                      {[0, 1, 2, 3, 4].map((dot) => (
-                        <div
-                          key={dot}
-                          className="w-1.5 h-1.5 rounded-full"
-                          style={{
-                            backgroundColor: dot * 20 < skill.level ? 'var(--accent-color)' : 'var(--text-muted)',
-                            opacity: dot * 20 < skill.level ? 1 : 0.3,
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <span className="font-medium flex-1" style={{ color: 'var(--text-primary)' }}>
-                      {skill.name}
-                    </span>
-                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                      {skill.level}%
-                    </span>
-                  </div>
+                    <span
+                      className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ backgroundColor: 'var(--accent-color)' }}
+                    />
+                    <span>{item}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
             </div>
           ))}

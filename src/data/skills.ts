@@ -1,31 +1,34 @@
 export const skillsData = {
-  title: '我的技能',
+  title: '能力方向',
   categories: [
     {
       name: '前端开发',
-      skills: [
-        { name: 'React', level: 85 },
-        { name: 'TypeScript', level: 75 },
-        { name: 'JavaScript', level: 90 },
-        { name: 'CSS/TailwindCSS', level: 80 },
-        { name: 'HTML5', level: 85 },
+      items: [
+        'React 组件拆分与状态管理',
+        '响应式布局与移动端适配',
+        'TypeScript 类型系统与工程实践',
+        'TailwindCSS 设计与主题定制',
+        'Framer Motion 动效实现',
       ],
     },
     {
-      name: '后端开发',
-      skills: [
-        { name: 'Node.js', level: 70 },
-        { name: 'Express', level: 65 },
-        { name: 'SpringBoot', level: 80 },
+      name: '后端与 AI',
+      items: [
+        'RESTful API 设计与开发',
+        'Spring Boot + MyBatis 服务搭建',
+        'AI 辅助开发与代码迭代',
+        'RAG 架构与知识库构建',
+        'Ollama 本地模型部署',
       ],
     },
     {
-      name: '工具与其他',
-      skills: [
-        { name: 'Git', level: 80 },
-        { name: 'Vite', level: 70 },
-        { name: 'ClaudeCode', level: 80 },
-        { name: 'Codex', level: 75 },
+      name: '工具与协作',
+      items: [
+        'Git 工作流与团队协作',
+        'Vite + 现代前端工程化',
+        'Claude Code / Cursor AI 工具链',
+        'WebSocket 实时通信',
+        'Markdown 内容管理与展示',
       ],
     },
   ],
