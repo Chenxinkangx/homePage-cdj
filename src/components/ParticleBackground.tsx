@@ -59,8 +59,8 @@ function ParticleBackground({
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
         radius: Math.random() * particleRadius + 0.5,
       })
     }
@@ -110,8 +110,10 @@ function ParticleBackground({
           p.vy += (dy / dist) * force
         }
 
-        p.vx *= 0.99
-        p.vy *= 0.99
+        p.vx += (Math.random() - 0.5) * 0.05
+        p.vy += (Math.random() - 0.5) * 0.05
+        p.vx *= 0.995
+        p.vy *= 0.995
         p.x += p.vx
         p.y += p.vy
 
