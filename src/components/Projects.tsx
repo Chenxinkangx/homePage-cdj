@@ -14,7 +14,11 @@ function ProjectCard({ project, index }: { project: typeof projectsData[0]; inde
         borderColor: 'var(--border-color)',
       }}
       {...cardAnimation}
-      transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.1 }}
+      whileInView={{
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: 'easeOut', delay: index * 0.1 },
+      }}
       onClick={() => setIsOpen(!isOpen)}
     >
       {/* Accent bar */}

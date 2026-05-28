@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { skillsData } from '../data'
-import { cardAnimation } from '../utils/variants'
 
 function Skills() {
   return (
@@ -14,16 +13,22 @@ function Skills() {
 
         <div className="grid gap-8 md:grid-cols-3">
           {skillsData.categories.map((category, catIndex) => (
-            <motion.div
+            <div
               key={catIndex}
-              className="rounded-xl p-6 transition-shadow duration-300 hover:shadow-lg"
+              className="rounded-xl p-6 transition-all duration-150 ease-out hover:-translate-y-2 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
               }}
-              {...cardAnimation}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: catIndex * 0.1 }}
-              whileHover={{ y: -4 }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: 'easeOut', delay: catIndex * 0.1 },
+                }}
+                viewport={{ once: true }}
+              >
               <h3 className="mb-6 text-xl font-bold inline-block relative" style={{ color: 'var(--accent-color)' }}>
                 {category.name}
                 <span
@@ -61,6 +66,7 @@ function Skills() {
                 ))}
               </div>
             </motion.div>
+            </div>
           ))}
         </div>
       </div>

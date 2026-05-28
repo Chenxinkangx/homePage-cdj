@@ -65,7 +65,11 @@ function Guestbook() {
 
         <motion.div
           {...cardAnimation}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: 'easeOut' },
+          }}
           className="rounded-xl p-6 mb-8"
           style={{ backgroundColor: 'var(--bg-card)' }}
         >
@@ -121,7 +125,11 @@ function Guestbook() {
             <motion.div
               key={entry.id}
               {...cardAnimation}
-              transition={{ duration: 0.5, ease: 'easeOut', delay: index * 0.05 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, ease: 'easeOut', delay: index * 0.05 },
+              }}
               className="rounded-xl p-6"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >

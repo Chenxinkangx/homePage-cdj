@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { lifeData } from '../data'
-import { cardAnimation } from '../utils/variants'
 
 function Life() {
   const { title, interests, learningSection } = lifeData
@@ -14,22 +13,29 @@ function Life() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {interests.map((interest, index) => (
-            <motion.div
+            <div
               key={index}
-              className="rounded-xl p-6 text-center transition-shadow duration-300 hover:shadow-lg cursor-default"
+              className="rounded-xl p-6 text-center transition-all duration-150 ease-out hover:-translate-y-2 hover:shadow-lg cursor-default"
               style={{
                 backgroundColor: 'var(--bg-card)',
               }}
-              {...cardAnimation}
-              transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}
-              whileHover={{ y: -4 }}
             >
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.4, ease: 'easeOut', delay: index * 0.08 },
+                }}
+                viewport={{ once: true }}
+              >
               <div className="mb-4 text-5xl transition-transform duration-300 hover:scale-110">
                 {interest.icon}
               </div>
               <h3 className="mb-2 text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{interest.title}</h3>
               <p style={{ color: 'var(--text-secondary)' }}>{interest.description}</p>
             </motion.div>
+            </div>
           ))}
         </div>
 

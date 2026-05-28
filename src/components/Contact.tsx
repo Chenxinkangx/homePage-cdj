@@ -18,23 +18,24 @@ function Contact() {
 
         <div className="space-y-6">
           {links.map((link, index) => (
-            <motion.a
+            <a
               key={index}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-6 rounded-xl p-6 transition-shadow duration-200 hover:shadow-lg"
+              className="flex items-center gap-6 rounded-xl p-6 transition-all duration-150 ease-out hover:-translate-y-1 hover:shadow-lg"
               style={{
                 backgroundColor: 'var(--bg-card)',
                 marginLeft: index % 2 === 0 ? '0' : '4rem',
                 marginRight: index % 2 === 0 ? '4rem' : '0',
               }}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.08 }}
-              whileHover={{ y: -2 }}
             >
+              <motion.div
+                className="flex items-center gap-6"
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0, transition: { duration: 0.4, delay: index * 0.08 } }}
+                viewport={{ once: true }}
+              >
               <span className="text-3xl flex-shrink-0 transition-transform duration-200 hover:scale-110">
                 {link.icon}
               </span>
@@ -42,7 +43,8 @@ function Contact() {
                 <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>{link.title}</h3>
                 <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>{link.description}</p>
               </div>
-            </motion.a>
+              </motion.div>
+            </a>
           ))}
         </div>
       </div>

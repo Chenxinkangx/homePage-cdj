@@ -50,7 +50,11 @@ function About() {
             <motion.div
               key={index}
               {...cardAnimation}
-              transition={{ duration: 0.4, ease: 'easeOut', delay: index * 0.08 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.4, ease: 'easeOut', delay: index * 0.08 },
+              }}
               className="rounded-lg p-4 text-center"
               style={{ backgroundColor: 'var(--bg-card)' }}
             >
